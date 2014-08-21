@@ -1,32 +1,43 @@
-ModCloth App
-============
+# ModCloth App
 
 Application deployment bits for ModCloth
 
-Requirements
-------------
+## Requirements &amp; Dependencies
 
-Any pre-requisites that may not be covered by the ansible itself or the role
-should be mentioned here. For instance, if the role uses the EC2 module, it may
-be a good idea to mention in this section that the boto package is required.
+The [`docker_pull`](
+https://github.com/modcloth-labs/ansible-module-docker-pull) module is used to
+pull docker containers.
 
-Role Variables
---------------
+## Variables
 
-A description of the settable variables for this role should go here, including
-any variables that are in defaults/main.yml, vars/main.yml, and any variables
-that can/should be set via parameters to the role. Any variables that are read
-from other roles and/or the global scope (ie. hostvars, group vars, etc.)
-should be mentioned here as well.
+``` yaml
+# Equivalent of `CMD` to be passed to `docker run`
+modcloth_app_docker_command:
 
-Dependencies
-------------
+# Repository portion of docker image specification, e.g. "busybox",
+# "quay.io/modcloth/foo"
+modcloth_app_docker_repo:
 
-A list of other roles hosted on Galaxy should go here, plus any details in
-regards to parameters that may need to be set for other roles, or variables
-that are used from other roles.
+# Tag portion of docker image specification, e.g.: "latest", "master"
+modcloth_app_docker_tag: latest
 
-License
--------
+# Proxy port for docker container, passed via `-p` to `docker run`
+modcloth_app_docker_port: 3000
 
-MIT
+# Environment variable mapping written to /etc/default/{{ modcloth_app_name }}
+# which is passed to `docker run` via `--env-file`
+modcloth_app_env: {}
+
+# Template used for the file written to /etc/default/{{ modcloth_app_name }}
+modcloth_app_etc_default_template: templates/etc-default.j2
+
+# Application name used in file paths, service actions, etc.
+modcloth_app_name: app
+
+# Template used for the file written to /etc/init/{{ modcloth_app_name }}.conf
+modcloth_app_upstart_conf_template: templates/upstart.conf.j2
+```
+
+## License
+
+Licensed under the MIT license.  See the [LICENSE](./LICENSE) file for details.

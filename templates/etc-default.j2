@@ -1,0 +1,3 @@
+# vim:filetype=sh
+{% for key, value in modcloth_app_env|dictsort %}{{ key }}={{ value }}
+{% endfor %}

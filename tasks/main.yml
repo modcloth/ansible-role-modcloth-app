@@ -1,2 +1,38 @@
 ---
-# tasks file for modcloth.app
+- name: install packages
+  apt: pkg={{ item }} state=present update_cache=no
+  with_items:
+  - inotify-tools
+  register: modcloth_app_install_packages
+
+- name: write upstart conf
+  template:
+    src={{ modcloth_app_upstart_conf_template }}
+    dest=/etc/init/{{ modcloth_app_name }}.conf
+    owner=root group=root mode=0644
+  when: modcloth_app_upstart_conf_template != ""
+  register: modcloth_app_write_upstart_conf
+
+- name: write etc default file
+  template:
+    src={{ modcloth_app_etc_default_template }}
+    dest=/etc/default/{{ modcloth_app_name }}.conf
+    owner=root group=root mode=0644
+  when: modcloth_app_etc_default_template != ""
+  register: modcloth_app_write_etc_default_file
+
+- name: pull container
+  docker_pull:
+    repo={{ modcloth_app_docker_repo }}
+    tag={{ modcloth_app_docker_tag }}
+  when: modcloth_app_docker_repo != ""
+  register: modcloth_app_pull_container
+
+- name: stop app
+  service: name={{ modcloth_app_name }} state=stopped
+  when: modcloth_app_write_upstart_conf.changed or
+        modcloth_app_write_etc_default_file.changed or
+        modcloth_app_pull_container.changed
+
+- name: start app
+  service: name={{ modcloth_app_name }} state=started
