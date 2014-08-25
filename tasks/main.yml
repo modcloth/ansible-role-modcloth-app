@@ -16,7 +16,7 @@
 - name: write etc default file
   template:
     src={{ modcloth_app_etc_default_template }}
-    dest=/etc/default/{{ modcloth_app_name }}.conf
+    dest=/etc/default/{{ modcloth_app_name }}
     owner=root group=root mode=0644
   when: modcloth_app_etc_default_template != ""
   register: modcloth_app_write_etc_default_file
