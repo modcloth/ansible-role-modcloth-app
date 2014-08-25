@@ -6,12 +6,10 @@ env:
   - NETWORK_ENV=demo
   - ROLE=travis
   - TEAM=platform
-  - PATH=$HOME/bin:$PATH
 install:
 - pip install -r requirements.txt
 - make deps
-- mkdir -p $HOME/bin
-- ln -sv /bin/echo $HOME/bin/docker
+- cp -v .null_module library/docker_pull
 script:
 - ansible-playbook -i 127.0.0.1, -c local -s
     -e ssh_user=travis
