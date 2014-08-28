@@ -1,6 +1,6 @@
 ---
 # Equivalent of `CMD` to be passed to `docker run`
-modcloth_app_docker_command:
+modcloth_app_docker_command: ""
 
 # Repository portion of docker image specification, e.g. "busybox",
 # "quay.io/modcloth/foo"
