@@ -1,0 +1,18 @@
+---
+language: python
+sudo: false
+env:
+  global:
+  - NETWORK_ENV=demo
+  - ROLE=travis
+  - TEAM=platform
+install:
+- pip install -r requirements.txt
+- make deps
+- cp -v .null_module library/docker_pull
+script:
+- ansible-playbook -i 127.0.0.1, -c local -s
+    -e ssh_user=travis
+    -e hostname=travis-tmp-host.demo.modcloth.com
+    -vvvv
+    ./test.yml
