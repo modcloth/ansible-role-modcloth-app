@@ -11,6 +11,7 @@ pull docker containers.
 ## Variables
 
 ``` yaml
+---
 # Equivalent of `CMD` to be passed to `docker run`
 modcloth_app_docker_command:
 
@@ -29,13 +30,13 @@ modcloth_app_docker_port: 3000
 modcloth_app_env: {}
 
 # Template used for the file written to /etc/default/{{ modcloth_app_name }}
-modcloth_app_etc_default_template: templates/etc-default.j2
+modcloth_app_etc_default_template: etc-default.j2
 
 # Application name used in file paths, service actions, etc.
 modcloth_app_name: app
 
 # Template used for the file written to /etc/init/{{ modcloth_app_name }}.conf
-modcloth_app_upstart_conf_template: templates/upstart.conf.j2
+modcloth_app_upstart_conf_template: upstart.conf.j2
 ```
 
 ## License
