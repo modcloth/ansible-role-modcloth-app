@@ -15,4 +15,4 @@ script:
     -e ssh_user=travis
     -e hostname=travis-tmp-host.demo.modcloth.com
     -vvvv
-    ./test.yml
+    ./example.yml

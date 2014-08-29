@@ -2,6 +2,6 @@
 
 set -e
 
-if ! docker version ; then
-  curl -sL https://get.docker.io | bash
+if [[ -e /vagrant/.dockercfg ]] ; then
+  cp -v /vagrant/.dockercfg /root/.dockercfg
 fi

@@ -54,3 +54,4 @@ docs/_build/
 
 /.vagrant
 /library
+/.dockercfg

@@ -20,12 +20,11 @@
 - name: create cron job
   cron:
     name={{ modcloth_app_name }}
-    minute={{ modcloth_app_cron_minute }}
-    hour={{ modcloth_app_cron_hour }}
-    day={{ modcloth_app_cron_day }}
-    month={{ modcloth_app_cron_month }}
-    weekday={{ modcloth_app_cron_weekday }}
-    special_time={{ modcloth_app_cron_special_time }}
+    minute={{ modcloth_app_cron_schedule.split()[0] }}
+    hour={{ modcloth_app_cron_schedule.split()[1] }}
+    day={{ modcloth_app_cron_schedule.split()[2] }}
+    month={{ modcloth_app_cron_schedule.split()[3] }}
+    weekday={{ modcloth_app_cron_schedule.split()[4] }}
     job=/usr/local/bin/{{ modcloth_app_name }}-cron-wrapper
   when: modcloth_app_type == "cron"
         and modcloth_app_cron_wrapper_template != ""
@@ -48,9 +47,13 @@
 
 - name: stop app
   service: name={{ modcloth_app_name }} state=stopped
-  when: modcloth_app_write_upstart_conf.changed or
-        modcloth_app_write_etc_default_file.changed or
-        modcloth_app_pull_container.changed
+  when: modcloth_app_type == "long-running"
+        and (
+          modcloth_app_write_upstart_conf.changed
+          or modcloth_app_write_etc_default_file.changed
+          or modcloth_app_pull_container.changed
+        )
 
 - name: start app
   service: name={{ modcloth_app_name }} state=started
+  when: modcloth_app_type == "long-running"

@@ -22,23 +22,8 @@ modcloth_app_docker_tag: latest
 # Proxy port for docker container, passed via `-p` to `docker run`
 modcloth_app_docker_port: 3000
 
-# Cron job schedule minute
-modcloth_app_cron_minute: "*"
-
-# Cron job schedule hour
-modcloth_app_cron_hour: "*"
-
-# Cron job schedule day
-modcloth_app_cron_day: "*"
-
-# Cron job schedule month
-modcloth_app_cron_month: "*"
-
-# Cron job schedule weekday
-modcloth_app_cron_weekday: "*"
-
-# Cron job schedule special time
-modcloth_app_cron_special_time: ""
+# Cron job schedule
+modcloth_app_cron_schedule: "* * * * *"
 
 # Template used for the file written to /etc/default/{{ modcloth_app_name }}
 modcloth_app_etc_default_template: etc-default.j2
