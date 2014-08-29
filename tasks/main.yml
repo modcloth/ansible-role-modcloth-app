@@ -1,17 +1,35 @@
 ---
-- name: install packages
-  apt: pkg={{ item }} state=present update_cache=no
-  with_items:
-  - inotify-tools
-  register: modcloth_app_install_packages
-
 - name: write upstart conf
   template:
     src={{ modcloth_app_upstart_conf_template }}
     dest=/etc/init/{{ modcloth_app_name }}.conf
     owner=root group=root mode=0644
-  when: modcloth_app_upstart_conf_template != ""
+  when: modcloth_app_type == "long-running"
+        and modcloth_app_upstart_conf_template != ""
   register: modcloth_app_write_upstart_conf
+
+- name: write cron job wrapper
+  template:
+    src={{ modcloth_app_cron_wrapper_template }}
+    dest=/usr/local/bin/{{ modcloth_app_name }}-cron-wrapper
+    owner=root group=root mode=0755
+  when: modcloth_app_type == "cron"
+        and modcloth_app_cron_wrapper_template != ""
+  register: modcloth_app_write_cron_wrapper
+
+- name: create cron job
+  cron:
+    name={{ modcloth_app_name }}
+    minute={{ modcloth_app_cron_minute }}
+    hour={{ modcloth_app_cron_hour }}
+    day={{ modcloth_app_cron_day }}
+    month={{ modcloth_app_cron_month }}
+    weekday={{ modcloth_app_cron_weekday }}
+    special_time={{ modcloth_app_cron_special_time }}
+    job=/usr/local/bin/{{ modcloth_app_name }}-cron-wrapper
+  when: modcloth_app_type == "cron"
+        and modcloth_app_cron_wrapper_template != ""
+  register: modcloth_app_create_cron_job
 
 - name: write etc default file
   template:

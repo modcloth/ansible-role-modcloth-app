@@ -1,8 +1,15 @@
 ---
 - hosts: all
-  vars_files:
-  - defaults/main.yml
-  tasks:
-  - include: tasks/main.yml
-  handlers:
-  - include: handlers/main.yml
+  roles:
+  - role: modcloth.app
+    modcloth_app_type: long-running
+    modcloth_app_docker_command: 'env'
+    modcloth_app_docker_repo: 'busybox'
+    modcloth_app_env:
+      SLEEPYTIME: '9999'
+  - role: modcloth.app
+    modcloth_app_type: cron
+    modcloth_app_docker_command: 'env'
+    modcloth_app_docker_repo: 'echo whatever'
+    modcloth_app_env:
+      FOO: 'bar'
