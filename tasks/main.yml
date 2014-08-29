@@ -21,13 +21,6 @@
   when: modcloth_app_etc_default_template != ""
   register: modcloth_app_write_etc_default_file
 
-- name: docker login
-  shell: docker login --email "{{ modcloth_app_docker_email }}" --username "{{ modcloth_app_docker_username }}" --password "{{ modcloth_app_docker_password }}" "{{ modcloth_app_docker_registry }}" 
-  when: modcloth_app_docker_email is defined and
-        modcloth_app_docker_username is defined and
-        modcloth_app_docker_password is defined and
-        modcloth_app_docker_registry
-
 - name: pull container
   docker_pull:
     repo={{ modcloth_app_docker_repo }}

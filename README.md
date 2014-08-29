@@ -37,12 +37,6 @@ modcloth_app_name: app
 
 # Template used for the file written to /etc/init/{{ modcloth_app_name }}.conf
 modcloth_app_upstart_conf_template: upstart.conf.j2
-
-# Credentials used for `docker login`
-modcloth_app_docker_email:
-modcloth_app_docker_username:
-modcloth_app_docker_password:
-modcloth_app_docker_registry:
 ```
 
 ## License
