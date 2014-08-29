@@ -1,0 +1,20 @@
+---
+- name: write cron job wrapper
+  template:
+    src={{ modcloth_app_cron_wrapper_template }}
+    dest=/usr/local/bin/{{ modcloth_app_name }}-cron-wrapper
+    owner=root group=root mode=0755
+  when: modcloth_app_cron_wrapper_template != ""
+  register: modcloth_app_write_cron_wrapper
+
+- name: create cron job
+  cron:
+    name={{ modcloth_app_name }}
+    minute={{ modcloth_app_cron_schedule.split()[0] }}
+    hour={{ modcloth_app_cron_schedule.split()[1] }}
+    day={{ modcloth_app_cron_schedule.split()[2] }}
+    month={{ modcloth_app_cron_schedule.split()[3] }}
+    weekday={{ modcloth_app_cron_schedule.split()[4] }}
+    job=/usr/local/bin/{{ modcloth_app_name }}-cron-wrapper
+  when: modcloth_app_cron_wrapper_template != ""
+  register: modcloth_app_create_cron_job

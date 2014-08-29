@@ -1,35 +1,4 @@
 ---
-- name: write upstart conf
-  template:
-    src={{ modcloth_app_upstart_conf_template }}
-    dest=/etc/init/{{ modcloth_app_name }}.conf
-    owner=root group=root mode=0644
-  when: modcloth_app_type == "long-running"
-        and modcloth_app_upstart_conf_template != ""
-  register: modcloth_app_write_upstart_conf
-
-- name: write cron job wrapper
-  template:
-    src={{ modcloth_app_cron_wrapper_template }}
-    dest=/usr/local/bin/{{ modcloth_app_name }}-cron-wrapper
-    owner=root group=root mode=0755
-  when: modcloth_app_type == "cron"
-        and modcloth_app_cron_wrapper_template != ""
-  register: modcloth_app_write_cron_wrapper
-
-- name: create cron job
-  cron:
-    name={{ modcloth_app_name }}
-    minute={{ modcloth_app_cron_schedule.split()[0] }}
-    hour={{ modcloth_app_cron_schedule.split()[1] }}
-    day={{ modcloth_app_cron_schedule.split()[2] }}
-    month={{ modcloth_app_cron_schedule.split()[3] }}
-    weekday={{ modcloth_app_cron_schedule.split()[4] }}
-    job=/usr/local/bin/{{ modcloth_app_name }}-cron-wrapper
-  when: modcloth_app_type == "cron"
-        and modcloth_app_cron_wrapper_template != ""
-  register: modcloth_app_create_cron_job
-
 - name: write etc default file
   template:
     src={{ modcloth_app_etc_default_template }}
@@ -45,15 +14,4 @@
   when: modcloth_app_docker_repo != ""
   register: modcloth_app_pull_container
 
-- name: stop app
-  service: name={{ modcloth_app_name }} state=stopped
-  when: modcloth_app_type == "long-running"
-        and (
-          modcloth_app_write_upstart_conf.changed
-          or modcloth_app_write_etc_default_file.changed
-          or modcloth_app_pull_container.changed
-        )
-
-- name: start app
-  service: name={{ modcloth_app_name }} state=started
-  when: modcloth_app_type == "long-running"
+- include: "{{ modcloth_app_type }}.yml"

@@ -1,0 +1,17 @@
+---
+- name: write upstart conf
+  template:
+    src={{ modcloth_app_upstart_conf_template }}
+    dest=/etc/init/{{ modcloth_app_name }}.conf
+    owner=root group=root mode=0644
+  when: modcloth_app_upstart_conf_template != ""
+  register: modcloth_app_write_upstart_conf
+
+- name: stop app
+  service: name={{ modcloth_app_name }} state=stopped
+  when: modcloth_app_write_upstart_conf.changed
+        or modcloth_app_write_etc_default_file.changed
+        or modcloth_app_pull_container.changed
+
+- name: start app
+  service: name={{ modcloth_app_name }} state=started
