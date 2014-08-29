@@ -1,10 +1,4 @@
 ---
-- name: install packages
-  apt: pkg={{ item }} state=present update_cache=no
-  with_items:
-  - inotify-tools
-  register: modcloth_app_install_packages
-
 - name: write upstart conf
   template:
     src={{ modcloth_app_upstart_conf_template }}
