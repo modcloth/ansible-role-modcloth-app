@@ -10,16 +10,8 @@ respawn
 respawn limit 3 30
 
 script
-  DOCKER_SOCK=/var/run/docker.sock
-
-  while [ ! -e $DOCKER_SOCK ] ; do
-    inotifywait -t 2 -e create $(dirname $DOCKER_SOCK)
-  done
-
-  if docker ps -a | awk '{ print $NF }' | grep -q -E '\b{{ modcloth_app_name }}\b' ; then
-    docker stop {{ modcloth_app_name }} || true
-    docker rm -f {{ modcloth_app_name }} || true
-  fi
+  docker stop {{ modcloth_app_name }} || true
+  docker rm -f {{ modcloth_app_name }} || true
 
   docker run --rm \
     -p {{ modcloth_app_docker_port }}:{{ modcloth_app_docker_port }} \
