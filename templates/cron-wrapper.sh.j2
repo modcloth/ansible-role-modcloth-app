@@ -2,20 +2,13 @@
 # {{ ansible_managed }}
 set -e
 
-DOCKER_SOCK=/var/run/docker.sock
-
-while [ ! -e $DOCKER_SOCK ] ; do
-  inotifywait -t 2 -e create $(dirname $DOCKER_SOCK)
-done
-
-if docker ps -a | awk '{ print $NF }' | grep -q -E '\b{{ modcloth_app_name }}\b' ; then
-  docker stop {{ modcloth_app_name }} || true
-  docker rm -f {{ modcloth_app_name }} || true
-fi
+docker stop {{ modcloth_app_name }} || true
+docker rm -f {{ modcloth_app_name }} || true
 
 exec run-one docker run \
   --env-file /etc/default/{{ modcloth_app_name }} \
   --name {{ modcloth_app_name }} \
+  --rm \
   {{ modcloth_app_docker_repo }}:{{ modcloth_app_docker_tag }} \
   {{ modcloth_app_docker_command }} \
   >> /var/log/{{ modcloth_app_name }}.log \
