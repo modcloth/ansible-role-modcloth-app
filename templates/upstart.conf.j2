@@ -10,8 +10,8 @@ respawn
 respawn limit 3 30
 
 script
-  docker stop {{ modcloth_app_name }} || true
-  docker rm -f {{ modcloth_app_name }} || true
+  docker stop {{ modcloth_app_name }} >/dev/null 2>&1 || true
+  docker rm -f {{ modcloth_app_name }} >/dev/null 2>&1 || true
 
   docker run \
     -p {{ modcloth_app_docker_port }}:{{ modcloth_app_docker_port }} \
