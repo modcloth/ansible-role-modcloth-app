@@ -13,7 +13,7 @@ script
   docker stop {{ modcloth_app_name }} || true
   docker rm -f {{ modcloth_app_name }} || true
 
-  docker run \
+  docker run --rm \
     -p {{ modcloth_app_docker_port }}:{{ modcloth_app_docker_port }} \
     --env-file=/etc/default/{{ modcloth_app_name }} \
     --name {{ modcloth_app_name }} \

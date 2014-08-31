@@ -23,7 +23,7 @@
   register: modcloth_app_pull_container
 
 - name: stop app
-  service: name={{ modcloth_app_name }} state=stopped
+  service: name={{ modcloth_app_name }} state=restarted
   when: modcloth_app_write_upstart_conf.changed or
         modcloth_app_write_etc_default_file.changed or
         modcloth_app_pull_container.changed
