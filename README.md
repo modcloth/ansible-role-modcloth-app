@@ -1,5 +1,7 @@
 # ModCloth App
 
+[![Build Status](https://travis-ci.org/modcloth/ansible-role-modcloth-app.svg?branch=master)](https://travis-ci.org/modcloth/ansible-role-modcloth-app)
+
 Application deployment bits for ModCloth
 
 ## Requirements &amp; Dependencies
