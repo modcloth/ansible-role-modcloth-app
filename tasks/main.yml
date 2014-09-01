@@ -16,6 +16,8 @@
 
 - include: cron.yml
   when: modcloth_app_type == "cron"
+  register: modcloth_app_type_cron
 
 - include: long-running.yml
   when: modcloth_app_type == "long-running"
+  register: modcloth_app_type_long_running
