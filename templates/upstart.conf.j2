@@ -17,6 +17,9 @@ script
     -p {{ modcloth_app_docker_port }}:{{ modcloth_app_docker_port }} \
     --env-file /etc/default/{{ modcloth_app_name }} \
     --name {{ modcloth_app_name }} \
+    {% for dockeropt in modcloth_app_docker_args %}
+    {{ dockeropt }} \
+    {% endfor %}
     --rm \
     {{ modcloth_app_docker_repo }}:{{ modcloth_app_docker_tag }} {{ modcloth_app_docker_command }}
 end script
