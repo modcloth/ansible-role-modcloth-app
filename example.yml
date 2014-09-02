@@ -8,14 +8,17 @@
       sh -c "while true ; do date ; sleep 10 ; done"
     modcloth_app_docker_repo: busybox
     modcloth_app_docker_args:
-    - '-v /foo/bar:/foo/bar'
+      - '--link memcached:memcached'
     modcloth_app_env:
       FOO: bar
+    modcloth_app_docker_volumes:
+      - { host: /var/log/foo, container: /var/logfoo, permissions: ro }
+
   - role: modcloth.app
     modcloth_app_name: modcloth-cron-app
     modcloth_app_type: cron
     modcloth_app_docker_args:
-    - '-v /foo/bar:/foo/bar'
+      - '--link memcached:memcached'
     modcloth_app_docker_command: date
     modcloth_app_docker_repo: busybox
     modcloth_app_env:
