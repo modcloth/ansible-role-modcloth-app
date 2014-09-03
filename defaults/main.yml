@@ -35,6 +35,9 @@ modcloth_app_upstart_conf_template: upstart.conf.j2
 # /usr/local/bin/{{ modcloth_app_name }}-cron-wrapper
 modcloth_app_cron_wrapper_template: cron-wrapper.sh.j2
 
+# Command to execute and pass to STDIN of docker process
+modcloth_app_cron_stdin_command: ""
+
 # Addition arguments to pass to `docker run`
 modcloth_app_docker_args: []
 

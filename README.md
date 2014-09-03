@@ -49,6 +49,11 @@ modcloth_app_upstart_conf_template: upstart.conf.j2
 # Template used for the file written to
 # /usr/local/bin/{{ modcloth_app_name }}-cron-wrapper
 modcloth_app_cron_wrapper_template: cron-wrapper.sh.j2
+
+# Command to execute and pass to STDIN of docker process
+# Use this with another process that feeds required data to your proccess over STDIN
+# E.g. a query running in another container
+modcloth_app_cron_stdin_command: ""
 ```
 
 ## License
