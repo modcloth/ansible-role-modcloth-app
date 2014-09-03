@@ -15,6 +15,6 @@
     day={{ modcloth_app_cron_schedule.split()[2] }}
     month={{ modcloth_app_cron_schedule.split()[3] }}
     weekday={{ modcloth_app_cron_schedule.split()[4] }}
-    job=/usr/local/bin/{{ modcloth_app_name }}-cron-wrapper
+    job="run-one /usr/local/bin/{{ modcloth_app_name }}-cron-wrapper"
   when: modcloth_app_cron_wrapper_template != ""
   register: modcloth_app_create_cron_job

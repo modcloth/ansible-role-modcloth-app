@@ -5,7 +5,7 @@ set -e
 docker stop {{ modcloth_app_name }} >/dev/null 2>&1 || true
 docker rm -f {{ modcloth_app_name }} >/dev/null 2>&1 || true
 
-exec run-one docker run \
+exec docker run \
   --env-file /etc/default/{{ modcloth_app_name }} \
   --name {{ modcloth_app_name }} \
   {% for dockeropt in modcloth_app_docker_args %}
