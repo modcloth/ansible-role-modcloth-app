@@ -21,5 +21,6 @@
       - '--link memcached:memcached'
     modcloth_app_docker_command: date
     modcloth_app_docker_repo: busybox
+    modcloth_app_cron_stdin_command: date
     modcloth_app_env:
       FOO: bar
