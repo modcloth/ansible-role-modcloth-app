@@ -12,4 +12,16 @@ galaxy_info:
     - trusty
   categories:
   - web
-dependencies: []
+dependencies:
+- role: modcloth.rsyslog-file
+  service: "{{modcloth_app_name}}"
+  files:
+  - { tag: '{{modcloth_app_name}}', name: '/var/log/upstart/{{modcloth_app_name}}.err'}
+  - { tag: '{{modcloth_app_name}}', name: '/var/log/upstart/{{modcloth_app_name}}.log'}
+  when: modcloth_app_type == "long-running"
+- role: modcloth.rsyslog-file
+  service: "{{modcloth_app_name}}"
+  files:
+  - { tag: '{{modcloth_app_name}}', name: '/var/log/{{modcloth_app_name}}.err'}
+  - { tag: '{{modcloth_app_name}}', name: '/var/log/{{modcloth_app_name}}.log'}
+  when: modcloth_app_type == "cron"
