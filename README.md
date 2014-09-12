@@ -54,6 +54,10 @@ modcloth_app_cron_wrapper_template: cron-wrapper.sh.j2
 # E.g. a query running in another container
 modcloth_app_cron_stdin_command: ""
 
+# Template used for the temptate used to set up logrotation
+# with logrotated
+modcloth_app_cron_logrotate_template: cron-logrotate.j2
+
 # Addition arguments to pass to `docker run`
 modcloth_app_docker_args: []
 

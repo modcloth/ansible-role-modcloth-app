@@ -1,0 +1,8 @@
+/var/log/{{ modcloth_app_name }}.log /var/log/{{ modcloth_app_name }}.err {
+        daily
+        missingok
+        rotate 7
+        compress
+        notifempty
+        nocreate
+}

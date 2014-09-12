@@ -18,3 +18,11 @@
     job="run-one /usr/local/bin/{{ modcloth_app_name }}-cron-wrapper"
   when: modcloth_app_cron_wrapper_template != ""
   register: modcloth_app_create_cron_job
+
+- name: Set up log rotation
+  template:
+    src={{ modcloth_app_cron_logrotate_template }}
+    dest=/etc/logrotate.d/{{ modcloth_app_name }}
+    mode=0644
+    owner=root
+    group=root
