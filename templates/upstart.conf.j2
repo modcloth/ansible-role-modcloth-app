@@ -19,6 +19,7 @@ script
 
   docker run --rm \
     -p {{ modcloth_app_docker_port }}:{{ modcloth_app_docker_port }} \
+    --hostname "$(hostname)" \
     --env-file /etc/default/{{ modcloth_app_name }} \
     --name {{ modcloth_app_name }} \
     {% for dockeropt in modcloth_app_docker_args -%}
