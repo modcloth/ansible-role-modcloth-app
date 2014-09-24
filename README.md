@@ -67,6 +67,8 @@ modcloth_app_upstart_start_condition: ""
 # volumes to mount into the docker container
 # ensures the directory on the host will be created
 modcloth_app_docker_volumes: []
+# Example:
+# - { host: /var/lib/redis, container: /var/lib/redis, directory: true}
 ```
 
 ## License

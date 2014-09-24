@@ -11,7 +11,7 @@ respawn limit 3 30
 
 script
   {% for volume in modcloth_app_docker_volumes -%}
-  mkdir -p {{ volume.host }}
+  {% if volume.directory is not defined or volume.directory %} mkdir -p {{ volume.host }} {% endif %}
   {% endfor %}
 
   docker stop {{ modcloth_app_name }} >/dev/null 2>&1 || true
