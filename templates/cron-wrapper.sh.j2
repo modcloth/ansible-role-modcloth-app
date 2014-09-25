@@ -1,6 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # {{ ansible_managed }}
 set -e
+
+{% for volume in modcloth_app_docker_volumes -%}
+{% if volume.directory is defined and volume.directory %} mkdir -p {{ volume.host }} {% endif %}
+{% endfor %}
 
 docker stop {{ modcloth_app_name }} >/dev/null 2>&1 || true
 docker rm -f {{ modcloth_app_name }} >/dev/null 2>&1 || true
@@ -13,6 +17,9 @@ docker rm -f {{ modcloth_app_name }} >/dev/null 2>&1 || true
   {% endfor %}
   -i \
   --rm \
+  {% for volume in modcloth_app_docker_volumes -%}
+  -v {{ volume.host }}:{{ volume.container }}:{{ volume.permissions | default("rw") }} \
+  {% endfor %}
   {{ modcloth_app_docker_repo }}:{{ modcloth_app_docker_tag }} \
   {{ modcloth_app_docker_command }} \
   >> /var/log/{{ modcloth_app_name }}.log \

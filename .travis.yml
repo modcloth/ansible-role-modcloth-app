@@ -12,11 +12,6 @@ install:
 - cp -v .null_module library/docker_pull
 - ansible-galaxy install -p roles modcloth.rsyslog-file
 script:
-- touch .README.*.md && make README.md
-- if ! git diff --exit-code README.md ; then
-    echo 'README.md was not updated, eh.' ;
-    exit 1 ;
-  fi
 - ansible-playbook -i 127.0.0.1, -c local -s
     -e ssh_user=travis
     -e hostname=travis-tmp-host.demo.modcloth.com

@@ -6,6 +6,3 @@ library/docker_pull: library
 
 library:
 	mkdir -p $@
-
-README.md: .README.head.md .README.tail.md
-	cat .README.head.md defaults/main.yml .README.tail.md > $@
