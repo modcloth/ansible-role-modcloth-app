@@ -36,6 +36,13 @@ modcloth_app_docker_tag: latest
 
 # Proxy port for docker container, passed via `-p` to `docker run`
 modcloth_app_docker_port: 3000
+# Also valid:
+# modcloth_app_docker_port:
+# - { host: 3000, container: 80 }
+# - { host: 8080, container: 9292, ip: 127.0.0.1 }
+# - { container: 22, ip: 127.0.0.1 }
+# Invalid:
+# - { host: 22, ip: 127.0.0.1 }
 
 # Cron job schedule
 modcloth_app_cron_schedule: "* * * * *"
@@ -68,7 +75,13 @@ modcloth_app_upstart_start_condition: ""
 # ensures the directory on the host will be created
 modcloth_app_docker_volumes: []
 # Example:
-# - { host: /var/lib/redis, container: /var/lib/redis, directory: true}
+# - { host: /var/lib/redis, container: /var/lib/redis, directory: true }
+
+# adds the --link option for `docker run` to the templates
+modcloth_app_docker_link: []
+# Example:
+# - { name: style-gallery, alias: style-gallery }
+# # note: alias, if not provided, defaults to the same value as name
 ```
 
 ## License
