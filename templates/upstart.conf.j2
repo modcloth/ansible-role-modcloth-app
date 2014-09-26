@@ -25,6 +25,9 @@ script
     -p {{ port.ip | default("") }}{% if port.ip is defined %}:{% endif %}{{ port.host | default("") }}{% if port.host is defined %}:{% endif %}{{ port.container }} \
     {% endfor -%}
     {% endif -%}
+    {% for link in modcloth_app_docker_link -%}
+    --link {{ link.name }}:{{ link.alias | default(link.name) }} \
+    {% endfor -%}
     --hostname "$(hostname)" \
     --env-file /etc/default/{{ modcloth_app_name }} \
     --name {{ modcloth_app_name }} \
