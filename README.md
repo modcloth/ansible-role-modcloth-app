@@ -24,6 +24,9 @@ modcloth_app_type: long-running
 # which is passed to `docker run` via `--env-file`
 modcloth_app_env: {}
 
+# Template used for the file written to /etc/default/{{ modcloth_app_name }}
+modcloth_app_etc_default_template: etc-default.j2
+
 # Equivalent of `CMD` to be passed to `docker run`
 modcloth_app_docker_command: ""
 
@@ -41,17 +44,23 @@ modcloth_app_docker_port: 3000
 # - { host: 3000, container: 80 }
 # - { host: 8080, container: 9292, ip: 127.0.0.1 }
 # - { container: 22, ip: 127.0.0.1 }
-# Invalid:
+# Invalid (must at least specify container ip):
 # - { host: 22, ip: 127.0.0.1 }
+
+# volumes to mount into the docker container
+# ensures the directory on the host will be created
+modcloth_app_docker_volumes: []
+# Example:
+# - { host: /var/lib/redis, container: /var/lib/redis, directory: true }
+
+# adds the --link option for `docker run` to the templates
+modcloth_app_docker_link: []
+# Example:
+# - { name: style-gallery, alias: style-gallery }
+# # note: alias, if not provided, defaults to the same value as name
 
 # Cron job schedule
 modcloth_app_cron_schedule: "* * * * *"
-
-# Template used for the file written to /etc/default/{{ modcloth_app_name }}
-modcloth_app_etc_default_template: etc-default.j2
-
-# Template used for the file written to /etc/init/{{ modcloth_app_name }}.conf
-modcloth_app_upstart_conf_template: upstart.conf.j2
 
 # Template used for the file written to
 # /usr/local/bin/{{ modcloth_app_name }}-cron-wrapper
@@ -65,23 +74,11 @@ modcloth_app_cron_stdin_command: ""
 # with logrotated
 modcloth_app_cron_logrotate_template: cron-logrotate.j2
 
-# Addition arguments to pass to `docker run`
-modcloth_app_docker_args: []
-
 # additional conditions on the upstart service
 modcloth_app_upstart_start_condition: ""
 
-# volumes to mount into the docker container
-# ensures the directory on the host will be created
-modcloth_app_docker_volumes: []
-# Example:
-# - { host: /var/lib/redis, container: /var/lib/redis, directory: true }
-
-# adds the --link option for `docker run` to the templates
-modcloth_app_docker_link: []
-# Example:
-# - { name: style-gallery, alias: style-gallery }
-# # note: alias, if not provided, defaults to the same value as name
+# Template used for the file written to /etc/init/{{ modcloth_app_name }}.conf
+modcloth_app_upstart_conf_template: upstart.conf.j2
 ```
 
 ## License
