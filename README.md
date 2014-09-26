@@ -36,6 +36,13 @@ modcloth_app_docker_tag: latest
 
 # Proxy port for docker container, passed via `-p` to `docker run`
 modcloth_app_docker_port: 3000
+# Also valid:
+# modcloth_app_docker_port:
+# - { host: 3000, container: 80 }
+# - { host: 8080, container: 9292, ip: 127.0.0.1 }
+# - { container: 22, ip: 127.0.0.1 }
+# Invalid:
+# - { host: 22, ip: 127.0.0.1 }
 
 # Cron job schedule
 modcloth_app_cron_schedule: "* * * * *"

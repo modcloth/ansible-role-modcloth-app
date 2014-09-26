@@ -12,21 +12,28 @@ respawn limit 3 30
 script
   {% for volume in modcloth_app_docker_volumes -%}
   {% if volume.directory is defined and volume.directory %} mkdir -p {{ volume.host }} {% endif %}
-  {% endfor %}
+  {% endfor -%}
 
   docker stop {{ modcloth_app_name }} >/dev/null 2>&1 || true
   docker rm -f {{ modcloth_app_name }} >/dev/null 2>&1 || true
 
   docker run --rm \
+    {% if modcloth_app_docker_port is number -%}
     -p {{ modcloth_app_docker_port }}:{{ modcloth_app_docker_port }} \
+    {% elif modcloth_app_docker_port is iterable -%}
+    {% for port in modcloth_app_docker_port -%}
+    -p {{ port.ip | default("") }}{% if port.ip is defined %}:{% endif %}{{ port.host | default("") }}{% if port.host is defined %}:{% endif %}{{ port.container }} \
+    {% endfor -%}
+    {% endif -%}
     --hostname "$(hostname)" \
     --env-file /etc/default/{{ modcloth_app_name }} \
     --name {{ modcloth_app_name }} \
     {% for dockeropt in modcloth_app_docker_args -%}
     {{ dockeropt }} \
-    {% endfor %}
+    {% endfor -%}
     {% for volume in modcloth_app_docker_volumes -%}
     -v {{ volume.host }}:{{ volume.container }}:{{ volume.permissions | default("rw") }} \
-    {% endfor %}
+    {% endfor -%}
     {{ modcloth_app_docker_repo }}:{{ modcloth_app_docker_tag }} {{ modcloth_app_docker_command }}
+
 end script
