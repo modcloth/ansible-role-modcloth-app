@@ -31,9 +31,6 @@ script
     --hostname "$(hostname)" \
     --env-file /etc/default/{{ modcloth_app_name }} \
     --name {{ modcloth_app_name }} \
-    {% for dockeropt in modcloth_app_docker_args -%}
-    {{ dockeropt }} \
-    {% endfor -%}
     {% for volume in modcloth_app_docker_volumes -%}
     -v {{ volume.host }}:{{ volume.container }}:{{ volume.permissions | default("rw") }} \
     {% endfor -%}
