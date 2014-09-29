@@ -18,12 +18,12 @@ script
   docker rm -f {{ modcloth_app_name }} >/dev/null 2>&1 || true
 
   docker run --rm \
-    {% if modcloth_app_docker_port is number -%}
-    -p {{ modcloth_app_docker_port }}:{{ modcloth_app_docker_port }} \
-    {% elif modcloth_app_docker_port is iterable -%}
+    {% if modcloth_app_docker_port is iterable -%}
     {% for port in modcloth_app_docker_port -%}
     -p {{ port.ip | default("") }}{% if port.ip is defined %}:{% endif %}{{ port.host | default("") }}{% if port.host is defined %}:{% endif %}{{ port.container }} \
     {% endfor -%}
+    {% else -%}
+    -p {{ modcloth_app_docker_port }}:{{ modcloth_app_docker_port }} \
     {% endif -%}
     {% for link in modcloth_app_docker_link -%}
     --link {{ link.name }}:{{ link.alias | default(link.name) }} \
