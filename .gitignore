@@ -53,7 +53,7 @@ coverage.xml
 docs/_build/
 
 /.vagrant
-/library
+/library/docker_pull
 /.dockercfg
 
 /roles/modcloth.rsyslog-file

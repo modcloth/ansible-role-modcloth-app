@@ -19,6 +19,9 @@ modcloth_app_docker_command: ""
 # "quay.io/modcloth/foo"
 modcloth_app_docker_repo: ""
 
+# Github repository slug, e.g. "owner/foo"
+modcloth_app_github_repo: ""
+
 # Tag portion of docker image specification, e.g.: "latest", "master"
 modcloth_app_docker_tag: latest
 
@@ -64,3 +67,17 @@ modcloth_app_upstart_start_condition: ""
 
 # Template used for the file written to /etc/init/{{ modcloth_app_name }}.conf
 modcloth_app_upstart_conf_template: upstart.conf.j2
+
+# Name of the organism running the playbook
+modcloth_app_deployer: ""
+
+# External dependency variables
+
+# Github API token
+github_token: "{{ github_api_token | default('') }}"
+
+# HipChat API token
+hipchat_token: "{{ hipchat_api_token | default('') }}"
+
+# HipChat room id
+hipchat_room: "{{ hipchat_team_room | default('') }}"
