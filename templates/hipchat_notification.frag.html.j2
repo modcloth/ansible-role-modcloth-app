@@ -1,0 +1,12 @@
+{{ modcloth_app_deployer }} is __ACTION__
+{% if modcloth_app_github_repo != "" %}
+<a href="https://github.com/{{ modcloth_app_github_repo }}">{{ modcloth_app_name }}</a>
+{% else %}
+{{ modcloth_app_name }}
+{% endif %}
+{% if modcloth_app_github_repo != "" %}
+<a href="https://github.com/{{ modcloth_app_github_repo }}/tree/{{ modcloth_app_docker_tag }}">{{ modcloth_app_docker_tag }}</a>
+{% else %}
+{{ modcloth_app_docker_tag }}
+{% endif %}
+{{ modcloth_app_tag_annotation }} to {{ hostname | default(ansible_fqdn) }}

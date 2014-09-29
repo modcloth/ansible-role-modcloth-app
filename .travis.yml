@@ -10,6 +10,9 @@ install:
 - pip install -r requirements.txt
 - make deps
 - cp -v .null_module library/docker_pull
+before_script:
+- git config --global user.name Travis
+- git config --global user.email travis@example.org
 script:
 - ansible-playbook -i 127.0.0.1, -c local -s
     -e ssh_user=travis
