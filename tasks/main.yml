@@ -6,6 +6,7 @@
     github_token={{ github_token }}
     repo={{ modcloth_app_github_repo }}
     revision={{ modcloth_app_docker_tag }}
+  changed_when: False
 
 - name: render hipchat deployment html
   sudo: false
@@ -14,6 +15,7 @@
     src=hipchat_notification.frag.html.j2
     dest={{ modcloth_app_hipchat_html }}
     mode=0644
+  changed_when: False
   when: hipchat_token != "" and hipchat_room != ""
 
 - name: notify hipchat deploy started
@@ -25,6 +27,7 @@
     msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'deploying') }}"
     msg_format: html
     color: purple
+  changed_when: False
   when: hipchat_token != "" and hipchat_room != ""
 
 - name: write etc default file
@@ -59,4 +62,5 @@
     msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'done deploying') }}"
     msg_format: html
     color: purple
+  changed_when: False
   when: hipchat_token != "" and hipchat_room != ""
