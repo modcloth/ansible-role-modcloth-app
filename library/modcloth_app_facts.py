@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # vim:fileencoding=utf-8
-
 import os
+import subprocess
 import sys
+import tempfile
 
 import requests
 
