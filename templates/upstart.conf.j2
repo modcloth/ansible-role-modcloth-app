@@ -18,7 +18,7 @@ script
   docker rm -f {{ modcloth_app_name }} >/dev/null 2>&1 || true
 
   docker run --rm \
-    {% if modcloth_app_docker_port is iterable -%}
+    {% if modcloth_app_docker_port is iterable and modcloth_app_docker_port is not string -%}
     {% for port in modcloth_app_docker_port -%}
     -p {{ port.ip | default("") }}{% if port.ip is defined %}:{% endif %}{{ port.host | default("") }}{% if port.host is defined %}:{% endif %}{{ port.container }} \
     {% endfor -%}
