@@ -24,7 +24,7 @@
   hipchat:
     token: "{{ hipchat_token }}"
     room: "{{ hipchat_room }}"
-    msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'deploying') }}"
+    msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'deploying').replace('__SERVER__', hostname ) }}"
     msg_format: html
     color: purple
   changed_when: False
@@ -59,7 +59,7 @@
   hipchat:
     token: "{{ hipchat_token }}"
     room: "{{ hipchat_room }}"
-    msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'done deploying') }}"
+    msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'done deploying').replace('__SERVER__', hostname ) }}"
     msg_format: html
     color: purple
   changed_when: False
