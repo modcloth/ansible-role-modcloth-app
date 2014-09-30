@@ -9,4 +9,4 @@
 {% else %}
 {{ modcloth_app_docker_tag }}
 {% endif %}
-{{ modcloth_app_tag_annotation }} to {{ hostname | default(ansible_fqdn) }}
+{{ modcloth_app_tag_annotation }} to __SERVER__
