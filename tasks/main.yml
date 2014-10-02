@@ -8,6 +8,13 @@
     revision={{ modcloth_app_docker_tag }}
   changed_when: False
 
+- name: install ca-certificates so hipchat api can use ssl
+  apt: name=ca-certificates state=present update_cache=yes
+
+- name: update ca certificates in case they're already installed
+  shell: update-ca-certificates --fresh
+  changed_when: false
+
 - name: render hipchat deployment html
   sudo: false
   connection: local
