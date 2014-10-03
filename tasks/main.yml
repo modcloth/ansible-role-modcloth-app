@@ -25,11 +25,13 @@
   hipchat:
     token: "{{ hipchat_token }}"
     room: "{{ hipchat_room }}"
-    msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'deploying').replace('__SERVER__', hostname ) }}"
+    msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'deploying').replace('__NETWORK_ENV__', env ) }}"
     msg_format: html
-    color: purple
+    color: yellow
   changed_when: False
   when: hipchat_token != "" and hipchat_room != ""
+  ignore_errors: True
+  run_once: yes
 
 - name: write etc default file
   template:
@@ -60,9 +62,10 @@
   hipchat:
     token: "{{ hipchat_token }}"
     room: "{{ hipchat_room }}"
-    msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'done deploying').replace('__SERVER__', hostname ) }}"
+    msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'done deploying').replace('__NETWORK_ENV__', env ) }}"
     msg_format: html
-    color: purple
+    color: green
   changed_when: False
   when: hipchat_token != "" and hipchat_room != ""
   ignore_errors: True
+  run_once: yes
