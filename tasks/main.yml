@@ -30,6 +30,7 @@
     color: purple
   changed_when: False
   when: hipchat_token != "" and hipchat_room != ""
+  ignore_errors: True
 
 - name: write etc default file
   template:
