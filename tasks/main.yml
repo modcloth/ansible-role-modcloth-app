@@ -1,6 +1,6 @@
 ---
 - name: get local facts
-  sudo: false
+  sudo: no
   connection: local
   modcloth_app_facts:
     github_token={{ github_token }}
@@ -9,7 +9,7 @@
   changed_when: False
 
 - name: render hipchat deployment html
-  sudo: false
+  sudo: no
   connection: local
   template:
     src=hipchat_notification.frag.html.j2
@@ -17,10 +17,10 @@
     mode=0644
   changed_when: False
   when: hipchat_token != "" and hipchat_room != ""
-  ignore_errors: True
+  ignore_errors: yes
 
 - name: notify hipchat deploy started
-  sudo: false
+  sudo: no
   connection: local
   hipchat:
     token: "{{ hipchat_token }}"
@@ -30,7 +30,7 @@
     color: yellow
   changed_when: False
   when: hipchat_token != "" and hipchat_room != ""
-  ignore_errors: True
+  ignore_errors: yes
   run_once: yes
 
 - name: write etc default file
@@ -57,7 +57,7 @@
   register: modcloth_app_type_long_running
 
 - name: notify hipchat deploy complete
-  sudo: false
+  sudo: no
   connection: local
   hipchat:
     token: "{{ hipchat_token }}"
@@ -67,5 +67,5 @@
     color: green
   changed_when: False
   when: hipchat_token != "" and hipchat_room != ""
-  ignore_errors: True
+  ignore_errors: yes
   run_once: yes

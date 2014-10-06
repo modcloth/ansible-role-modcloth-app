@@ -55,7 +55,7 @@ modcloth_app_docker_port: 3000
 # ensures the directory on the host will be created
 modcloth_app_docker_volumes: []
 # Example:
-# - { host: /var/lib/redis, container: /var/lib/redis, directory: true }
+# - { host: /var/lib/redis, container: /var/lib/redis, directory: yes }
 
 # adds the --link option for `docker run` to the templates
 modcloth_app_docker_link: []
