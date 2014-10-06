@@ -81,8 +81,28 @@ modcloth_app_cron_logrotate_template: cron-logrotate.j2
 # additional conditions on the upstart service
 modcloth_app_upstart_start_condition: ""
 
+# Name of the application in NewRelic (for deployment notifications)
+modcloth_app_new_relic_app_name: "[{{env}}] {{modcloth_app_name}}"
+
 # Template used for the file written to /etc/init/{{ modcloth_app_name }}.conf
 modcloth_app_upstart_conf_template: upstart.conf.j2
+
+# Whether to notify NewRelic of app deployments
+modcloth_app_notify_new_relic: false
+
+# External dependency variables
+
+# Github API token
+github_token: "{{ github_api_token | default('') }}"
+
+# HipChat API token
+hipchat_token: "{{ hipchat_api_token | default('') }}"
+
+# HipChat room id
+hipchat_room: "{{ hipchat_team_room | default('') }}"
+
+# NewRelic API token (for deployment notifications)
+new_relic_api_token: "{{ new_relic_api_token | default('') }}"
 ```
 
 ## License
