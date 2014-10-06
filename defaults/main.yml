@@ -3,6 +3,10 @@
 modcloth_app_name: app
 
 # The type of application to be deployed, either "long-running" or "cron"
+# 'cron' should be used for applications that should run on a schedule (e.g. a rake task)
+#   A cron entry will be inserted to run this task (as root)
+# 'long-running' should be used for applications that behave as services and should always be up
+#   An upstart job will be created to run your service (as root)
 modcloth_app_type: long-running
 
 # Environment variable mapping written to /etc/default/{{ modcloth_app_name }}

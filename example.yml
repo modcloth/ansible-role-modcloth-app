@@ -14,12 +14,14 @@
     modcloth_app_docker_volumes:
       - { host: /var/log/foo, container: /var/logfoo, permissions: ro }
 
+  # To be used with applications that should run on a schedule (e.g. a rake task)
   - role: modcloth.app
     modcloth_app_name: modcloth-cron-app
     modcloth_app_type: cron
     modcloth_app_docker_args:
       - '--link memcached:memcached'
     modcloth_app_docker_command: date
+    modcloth_app_cron_schedule: '*/5 * * * *'
     modcloth_app_docker_repo: busybox
     modcloth_app_cron_stdin_command: date
     modcloth_app_env:
