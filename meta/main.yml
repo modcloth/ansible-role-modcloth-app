@@ -18,10 +18,10 @@ dependencies:
   files:
   - { tag: '{{modcloth_app_name}}', name: '/var/log/upstart/{{modcloth_app_name}}.err'}
   - { tag: '{{modcloth_app_name}}', name: '/var/log/upstart/{{modcloth_app_name}}.log'}
-  when: modcloth_app_type == "long-running"
+  when: modcloth_app_type == "long-running" and modcloth_app_ship_logs|bool
 - role: modcloth.rsyslog-file
   service: "{{modcloth_app_name}}"
   files:
   - { tag: '{{modcloth_app_name}}', name: '/var/log/{{modcloth_app_name}}.err'}
   - { tag: '{{modcloth_app_name}}', name: '/var/log/{{modcloth_app_name}}.log'}
-  when: modcloth_app_type == "cron"
+  when: modcloth_app_type == "cron" and modcloth_app_ship_logs|bool

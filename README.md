@@ -10,7 +10,7 @@ The [`docker_pull`](
 https://github.com/modcloth-labs/ansible-module-docker-pull) module is used to
 pull docker containers.
 
-## Variables
+## Role Variables
 
 ``` yaml
 ---
@@ -90,8 +90,14 @@ modcloth_app_upstart_conf_template: upstart.conf.j2
 # Whether to notify NewRelic of app deployments
 modcloth_app_notify_new_relic: false
 
-# External dependency variables
+# Whether or not to ship logs using the modcloth.rsyslog-file role (see meta/main.yml)
+modcloth_app_ship_logs: true
+```
 
+## External Dependency Variables
+
+```yaml
+---
 # Github API token
 github_token: "{{ github_api_token | default('') }}"
 
