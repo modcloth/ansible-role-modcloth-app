@@ -98,15 +98,6 @@ modcloth_app_ship_logs: true
 
 ```yaml
 ---
-# Github API token
-github_token: "{{ github_api_token | default('') }}"
-
-# HipChat API token
-hipchat_token: "{{ hipchat_api_token | default('') }}"
-
-# HipChat room id
-hipchat_room: "{{ hipchat_team_room | default('') }}"
-
 # NewRelic API token (for deployment notifications)
 new_relic_api_token: "{{ new_relic_api_token | default('') }}"
 ```
