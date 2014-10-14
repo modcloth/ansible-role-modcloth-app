@@ -1,38 +1,4 @@
 ---
-- name: get local facts
-  sudo: no
-  connection: local
-  modcloth_app_facts:
-    github_token={{ github_token }}
-    repo={{ modcloth_app_github_repo }}
-    revision={{ modcloth_app_docker_tag }}
-  changed_when: False
-
-- name: render hipchat deployment html
-  sudo: no
-  connection: local
-  template:
-    src=hipchat_notification.frag.html.j2
-    dest={{ modcloth_app_hipchat_html }}
-    mode=0644
-  changed_when: False
-  when: hipchat_token != "" and hipchat_room != ""
-  ignore_errors: yes
-
-- name: notify hipchat deploy started
-  sudo: no
-  connection: local
-  hipchat:
-    token: "{{ hipchat_token }}"
-    room: "{{ hipchat_room }}"
-    msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'deploying').replace('__NETWORK_ENV__', env ) }}"
-    msg_format: html
-    color: yellow
-  changed_when: False
-  when: hipchat_token != "" and hipchat_room != ""
-  ignore_errors: yes
-  run_once: yes
-
 - name: write etc default file
   template:
     src={{ modcloth_app_etc_default_template }}
@@ -55,20 +21,6 @@
 - include: long-running.yml
   when: modcloth_app_type == "long-running"
   register: modcloth_app_type_long_running
-
-- name: notify hipchat deploy complete
-  sudo: no
-  connection: local
-  hipchat:
-    token: "{{ hipchat_token }}"
-    room: "{{ hipchat_room }}"
-    msg: "{{ lookup('file', modcloth_app_hipchat_html).replace('__ACTION__', 'done deploying').replace('__NETWORK_ENV__', env ) }}"
-    msg_format: html
-    color: green
-  changed_when: False
-  when: hipchat_token != "" and hipchat_room != ""
-  ignore_errors: yes
-  run_once: yes
 
 - name: notify new relic deploy complete
   sudo: false
