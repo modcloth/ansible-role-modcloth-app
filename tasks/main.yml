@@ -77,6 +77,8 @@
     app_name="{{modcloth_app_new_relic_app_name}}"
     revision="{{modcloth_app_docker_tag}}"
     user="{{modcloth_app_deployer}}"
-  when: modcloth_app_notify_new_relic|bool
+  when: modcloth_app_notify_new_relic|bool and
+        modcloth_app_new_relic_app_name != "" and
+        new_relic_api_token != ""
   ignore_errors: True
   run_once: yes
