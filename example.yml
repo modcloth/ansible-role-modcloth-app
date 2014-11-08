@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  sudo: false
+  sudo: yes
   roles:
   - role: modcloth.app
     modcloth_app_name: modcloth-long-running-app
