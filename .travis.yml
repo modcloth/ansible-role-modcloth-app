@@ -17,6 +17,5 @@ script:
 - ansible-playbook -i 127.0.0.1, -c local -s
     -e ssh_user=travis
     -e hostname=travis-tmp-host.demo.modcloth.com
-    -e modcloth_app_ship_logs=no
     -vvvv
     ./example.yml
