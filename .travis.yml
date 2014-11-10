@@ -1,6 +1,6 @@
 ---
 language: python
-sudo: false
+sudo: true
 env:
   global:
   - NETWORK_ENV=demo
