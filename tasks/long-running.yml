@@ -15,3 +15,5 @@
 
 - name: start app
   service: name={{ modcloth_app_name }} state=started
+
+- include: wait-healthcheck.yml
