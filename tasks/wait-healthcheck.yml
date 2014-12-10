@@ -8,7 +8,7 @@
     url: "{{ modcloth_app_healthcheck_url }}"
     timeout: "{{ modcloth_app_healthcheck_timeout }}"
   register: result
-  retries: "{{ modcloth_app_healthcheck_retries }}"
-  delay: "{{ modcloth_app_healthcheck_delay }}"
-  until: result.status < 400 and result.status >= 200
+  retries: 30 # currently not configurable due to https://github.com/ansible/ansible/issues/5865
+  delay:  "{{ modcloth_app_healthcheck_delay|int }}"
+  until: result.status is defined and result.status < 400 and result.status >= 200
   when: modcloth_app_healthcheck_enabled|bool

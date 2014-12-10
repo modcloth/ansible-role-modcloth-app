@@ -104,7 +104,7 @@ modcloth_app_healthcheck_host: "{{ ansible_fqdn }}"
 modcloth_app_healthcheck_url: "{{ modcloth_app_healthcheck_scheme }}://{{ modcloth_app_healthcheck_host }}:{{ modcloth_app_healthcheck_port }}/{{ modcloth_app_healthcheck_path }}"
 modcloth_app_healthcheck_timeout: 1
 modcloth_app_healthcheck_delay: 1
-modcloth_app_healthcheck_retries: 30
+# modcloth_app_healthcheck_retries: 30 # currently not configurable due to https://github.com/ansible/ansible/issues/5865
 ```
 
 ## External Dependency Variables
