@@ -92,6 +92,19 @@ modcloth_app_notify_new_relic: false
 
 # Whether or not to ship logs using the modcloth.rsyslog-file role (see meta/main.yml)
 modcloth_app_ship_logs: true
+
+# enable healthchecking after a restart
+modcloth_app_healthcheck_enabled: false
+
+# defaults for the healthcheck url
+modcloth_app_healthcheck_scheme: "http"
+modcloth_app_healthcheck_port: "80"
+modcloth_app_healthcheck_path: "heartbeat"
+modcloth_app_healthcheck_host: "{{ ansible_fqdn }}"
+modcloth_app_healthcheck_url: "{{ modcloth_app_healthcheck_scheme }}://{{ modcloth_app_healthcheck_host }}:{{ modcloth_app_healthcheck_port }}/{{ modcloth_app_healthcheck_path }}"
+modcloth_app_healthcheck_timeout: 1
+modcloth_app_healthcheck_delay: 1
+modcloth_app_healthcheck_retries: 30
 ```
 
 ## External Dependency Variables
