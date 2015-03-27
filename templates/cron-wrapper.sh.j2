@@ -9,7 +9,10 @@ set -e
 docker stop {{ modcloth_app_name }} >/dev/null 2>&1 || true
 docker rm -f {{ modcloth_app_name }} >/dev/null 2>&1 || true
 
-{% if modcloth_app_cron_stdin_command %} {{ modcloth_app_cron_stdin_command  }} | {% endif %} exec docker run \
+{% if modcloth_app_cron_stdin_command %} {{ modcloth_app_cron_stdin_command  }} | {% endif %} \
+  exec \
+  {% if modcloth_app_cron_timeout %} timeout -s {{ modcloth_app_cron_timeout_signal }} {{ modcloth_app_cron_timeout }} {% endif %} \
+  docker run \
   --env-file /etc/default/{{ modcloth_app_name }} \
   --name {{ modcloth_app_name }} \
   -i \
